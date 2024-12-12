@@ -2,6 +2,7 @@ import TaskList from './components/TaskList.jsx';
 import './App.css';
 import { useState } from 'react';
 
+
 const TASKS = [
   {
     id: 1,
@@ -33,7 +34,7 @@ const App = () => {
         <h1>Ada&apos;s Task List</h1>
       </header>
       <main>
-        <div>{<TaskList taskData={taskData} onComplete={completedTask} />}</div>
+        <div>{<TaskList tasks={taskData} onComplete={completedTask} />}</div>
       </main>
     </div>
   );
