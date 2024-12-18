@@ -2,6 +2,7 @@ import TaskList from './components/TaskList.jsx';
 import './App.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import NewTaskForm from './components/NewTaskForm.jsx';
 
 const TASKS = [
   {
@@ -68,6 +69,17 @@ const App = () => {
       });
   };
 
+  
+  const addTaskData = (newTask) => {
+    axios.post(`http://127.0.0.1:5000/tasks`)
+      .then(() => {
+        const updatedTasks = taskData.map((task) => {
+          return { ...task, newTask };
+        });
+        setTaskData(updatedTasks);
+      });
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -76,7 +88,13 @@ const App = () => {
       <main>
         <div>{<TaskList tasks={taskData}
           onComplete={toggleCompletedTask}
-          deleteTask={deleteTask} />}</div>
+          deleteTask={deleteTask} />}
+
+          {<NewTaskForm onTaskAdd={addTaskData}
+
+          />}
+
+        </div>
       </main>
     </div>
   );
