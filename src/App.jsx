@@ -38,7 +38,7 @@ const App = () => {
   }, []);
 
   const toggleCompletedTask = (id, isComplete) => {
-    const endpoint = isComplete ? `/tasks/${id}/mark_complete` : `/tasks/${id}/mark_incomplete`;
+    const endpoint = isComplete ? `/tasks/${id}/mark_incomplete` : `/tasks/${id}/mark_complete`;
 
     axios.patch(`http://127.0.0.1:5000${endpoint}`)
       .then(() => {
