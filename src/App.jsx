@@ -59,14 +59,7 @@ const App = () => {
   };
 
   const deleteTask = (id) => {
-    axios.delete(`http://127.0.0.1:5000/tasks/${id}`)
-      .then(() => {
-        const updatedTasks = taskData.filter((task) => task.id !== id);
-        setTaskData(updatedTasks);
-      })
-      .catch((error) => {
-        console.log('Delete Task Error', error);
-      });
+    setTaskData((taskData) => taskData.filter(task => task.id !== id));
   };
 
   
