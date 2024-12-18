@@ -1,7 +1,7 @@
 import TaskList from './components/TaskList.jsx';
 import './App.css';
-import { useState } from 'react';
-
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const TASKS = [
   {
@@ -16,17 +16,45 @@ const TASKS = [
   },
 ];
 
-const App = () => {
-  const [taskData, setTaskData] = useState(TASKS);
+const convertFromApi = (apiTask) => {
+  return {
+    ...apiTask,
+    isComplete: apiTask.is_complete,
+  };
+};
 
-  const completedTask = (id) => {
-    setTaskData( taskData => taskData.map(task => {
-      if (task.id == id) {
-        return { ...task, isComplete: !task.isComplete};
-      } else {
-        return task;
-      }
-    }));
+const App = () => {
+  const [taskData, setTaskData] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://127.0.0.1:5000/tasks')
+      .then(response => {
+        const updatedTasks = response.data.map(convertFromApi);
+        setTaskData(updatedTasks);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+
+  const toggleCompletedTask = (id, isComplete) => {
+    const endpoint = isComplete ? `/tasks/${id}/mark_incomplete` : `/tasks/${id}/mark_complete`;
+
+    axios.patch(`http://127.0.0.1:5000${endpoint}`)
+      .then(() => {
+        const updatedTasks = taskData.map((task) => {
+          if (task.id === id) {
+            return { ...task, isComplete: !task.isComplete };
+          } else {
+            return task;
+          }
+        });
+        setTaskData(updatedTasks);
+      })
+      .catch((error) => {
+        console.log('Toggle error:', error);
+        throw error;
+      });
   };
 
   const deleteTask = (id) => {
@@ -39,7 +67,9 @@ const App = () => {
         <h1>Ada&apos;s Task List</h1>
       </header>
       <main>
-        <div>{<TaskList tasks={taskData} onComplete={completedTask} deleteTask={deleteTask} />}</div>
+        <div>{<TaskList tasks={taskData}
+          onComplete={toggleCompletedTask}
+          deleteTask={deleteTask} />}</div>
       </main>
     </div>
   );
