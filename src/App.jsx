@@ -30,9 +30,7 @@ const App = () => {
   };
 
   const deleteTask = (id) => {
-    setTaskData(taskData => taskData.filter((task) => {
-      return task.id !== id;
-    }));
+    setTaskData((taskData) => taskData.filter(task => task.id !== id));
   };
 
   return (
