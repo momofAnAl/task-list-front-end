@@ -62,14 +62,18 @@ const App = () => {
     setTaskData((taskData) => taskData.filter(task => task.id !== id));
   };
 
-  
+
   const addTaskData = (newTask) => {
-    axios.post(`http://127.0.0.1:5000/tasks`)
-      .then(() => {
-        const updatedTasks = taskData.map((task) => {
-          return { ...task, newTask };
-        });
+    axios.post(`http://127.0.0.1:5000/tasks`, newTask)
+      .then((response) => {
+        const addedTask = response.data.task;
+        console.log(addTaskData);
+        const updatedTasks = [...taskData, addedTask];
+        console.log(updatedTasks);
         setTaskData(updatedTasks);
+      })
+      .catch((error) => {
+        console.error('Error adding task:', error);
       });
   };
 
@@ -82,11 +86,7 @@ const App = () => {
         <div>{<TaskList tasks={taskData}
           onComplete={toggleCompletedTask}
           deleteTask={deleteTask} />}
-
-          {<NewTaskForm onTaskAdd={addTaskData}
-
-          />}
-
+          {<NewTaskForm onTaskAdd={addTaskData} />}
         </div>
       </main>
     </div>

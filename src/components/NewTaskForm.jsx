@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const NewTaskForm = ({ onTaskAdd }) => {
   const [taskForm, setTaskForm] = useState({
     title: '',
     description: '',
-    completed_at: '',
-    goal_id: ''
+    // completed_at: '',
+    // goal_id: ''
   });
 
   const handleSubmit = (event) => {
@@ -15,8 +15,8 @@ const NewTaskForm = ({ onTaskAdd }) => {
     setTaskForm({
       title: '',
       description: '',
-      completed_at: '',
-      goal_id: ''
+    //   completed_at: '',
+    //   goal_id: ''
     });
   };
 
@@ -45,26 +45,6 @@ const NewTaskForm = ({ onTaskAdd }) => {
           id="description"
           name="description"
           value={taskForm.description}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="completed_at">Completed At: </label>
-        <input
-          id="completed_at"
-          name="completed_at"
-          type="date"
-          value={taskForm.completed_at}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="goal_id">Goal ID: </label>
-        <input
-          id="goal_id"
-          name="goal_id"
-          type="number"
-          value={taskForm.goal_id}
           onChange={handleChange}
         />
       </div>
