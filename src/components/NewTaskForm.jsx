@@ -5,8 +5,6 @@ const NewTaskForm = ({ onTaskAdd }) => {
   const [taskForm, setTaskForm] = useState({
     title: '',
     description: '',
-    // completed_at: '',
-    // goal_id: ''
   });
 
   const handleSubmit = (event) => {
@@ -15,8 +13,6 @@ const NewTaskForm = ({ onTaskAdd }) => {
     setTaskForm({
       title: '',
       description: '',
-    //   completed_at: '',
-    //   goal_id: ''
     });
   };
 
@@ -33,7 +29,7 @@ const NewTaskForm = ({ onTaskAdd }) => {
       <div>
         <label htmlFor="title">Title: </label>
         <input
-          id="title"
+          id="text"
           name="title"
           value={taskForm.title}
           onChange={handleChange}
@@ -42,7 +38,7 @@ const NewTaskForm = ({ onTaskAdd }) => {
       <div>
         <label htmlFor="description">Description: </label>
         <input
-          id="description"
+          id="text"
           name="description"
           value={taskForm.description}
           onChange={handleChange}

@@ -59,6 +59,7 @@ const App = () => {
   };
 
   const deleteTask = (id) => {
+    axios.delete(`http://127.0.0.1:5000/tasks/${id}`)
     setTaskData((taskData) => taskData.filter(task => task.id !== id));
   };
 
@@ -67,9 +68,9 @@ const App = () => {
     axios.post(`http://127.0.0.1:5000/tasks`, newTask)
       .then((response) => {
         const addedTask = response.data.task;
-        console.log(addTaskData);
+        // console.log(addTaskData);
         const updatedTasks = [...taskData, addedTask];
-        console.log(updatedTasks);
+        // console.log(updatedTasks);
         setTaskData(updatedTasks);
       })
       .catch((error) => {
